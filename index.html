@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pensum No. 6 - Licenciatura en Enfermería | UNIREMHOS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #020617;
+      --bg-panel: #0F172A;
+      --bg-card: #1E293B;
+      --bg-card-hover: #26354D;
+      --border-subtle: #334155;
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --accent-blue: #2563EB;
+      --accent-amber: #F59E0B;
+      --accent-emerald: #10B981;
+      --accent-rose: #F43F5E;
+      --accent-purple: #A855F7;
+      --accent-cyan: #06B6D4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Header & Controls */
+    header {
+      background-color: var(--bg-panel);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 1rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .title-group h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .badge-uniremhos {
+      background: rgba(37, 99, 235, 0.2);
+      color: #60A5FA;
+      border: 1px solid rgba(37, 99, 235, 0.4);
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .title-group p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 0.15rem;
+    }
+
+    .stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .stat-pill {
+      background: var(--bg-main);
+      border: 1px solid var(--border-subtle);
+      padding: 0.4rem 0.85rem;
+      border-radius: 0.6rem;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .stat-pill strong {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-emerald);
+      font-size: 0.9rem;
+    }
+
+    .btn-reset {
+      background: rgba(244, 63, 94, 0.12);
+      color: #FDA4AF;
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      padding: 0.42rem 0.8rem;
+      border-radius: 0.6rem;
+      font-size: 0.78rem;
+      font-family: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-reset:hover {
+      background: rgba(244, 63, 94, 0.25);
+    }
+
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .filter-btn {
+      background: var(--bg-main);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-family: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      border-color: #64748B;
+      color: var(--text-primary);
+    }
+
+    .filter-btn.active {
+      background: var(--accent-blue);
+      color: #FFFFFF;
+      border-color: var(--accent-blue);
+    }
+
+    .search-box {
+      position: relative;
+      min-width: 240px;
+      flex: 1;
+      max-width: 320px;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: var(--bg-main);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 0.45rem 0.85rem;
+      border-radius: 0.6rem;
+      font-family: inherit;
+      font-size: 0.8rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent-blue);
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 0.6rem 1.5rem;
+      background: rgba(15, 23, 42, 0.65);
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      align-items: center;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot-preq { background: var(--accent-amber); box-shadow: 0 0 8px var(--accent-amber); }
+    .dot-next { background: var(--accent-emerald); box-shadow: 0 0 8px var(--accent-emerald); }
+    .dot-avail { border: 2px solid var(--accent-emerald); background: transparent; }
+    .dot-done { background: #3B82F6; }
+
+    /* Flowchart Viewport */
+    .viewport {
+      position: relative;
+      flex: 1;
+      overflow-x: auto;
+      overflow-y: auto;
+      padding: 1.5rem;
+      cursor: grab;
+    }
+
+    .viewport:active {
+      cursor: grabbing;
+    }
+
+    .board {
+      position: relative;
+      display: flex;
+      gap: 2.2rem;
+      min-width: max-content;
+      padding-bottom: 2rem;
+    }
+
+    svg#connections-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 5;
+      overflow: visible;
+    }
+
+    .cuat-column {
+      width: 245px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      z-index: 10;
+    }
+
+    .cuat-header {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: 0.75rem;
+      padding: 0.65rem 0.85rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 15;
+    }
+
+    .cuat-header h2 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .cuat-header span {
+      font-size: 0.72rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-secondary);
+    }
+
+    /* Course Card */
+    .course-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 0.75rem;
+      padding: 0.75rem;
+      position: relative;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, opacity 0.2s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .course-card:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+      gap: 0.4rem;
+    }
+
+    .course-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.15rem 0.45rem;
+      border-radius: 0.35rem;
+      background: rgba(2, 6, 23, 0.65);
+      color: #CBD5E1;
+    }
+
+    .course-cr {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+    }
+
+    .check-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 0.4rem;
+      border: 1.5px solid #475569;
+      background: rgba(2, 6, 23, 0.5);
+      color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+
+    .check-btn:hover {
+      border-color: var(--accent-emerald);
+    }
+
+    .course-card.approved .check-btn {
+      background: var(--accent-blue);
+      border-color: var(--accent-blue);
+      color: #FFFFFF;
+    }
+
+    .course-card.approved {
+      border-color: rgba(37, 99, 235, 0.7);
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(37, 99, 235, 0.14));
+    }
+
+    .course-card.available:not(.approved) {
+      border-color: rgba(16, 185, 129, 0.75);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.12);
+    }
+
+    .course-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .course-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      align-items: center;
+    }
+
+    .tag-area {
+      font-size: 0.64rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 0.3rem;
+      font-weight: 500;
+    }
+
+    .tag-lab {
+      font-size: 0.64rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 0.3rem;
+      background: rgba(6, 182, 212, 0.15);
+      color: #67E8F9;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+
+    /* Interactive Highlight States */
+    .board.has-focus .course-card {
+      opacity: 0.22;
+    }
+
+    .board.has-focus .course-card.is-selected {
+      opacity: 1;
+      border-color: #60A5FA;
+      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.4), 0 10px 25px rgba(0, 0, 0, 0.5);
+      transform: scale(1.02);
+    }
+
+    .board.has-focus .course-card.is-prereq {
+      opacity: 1;
+      border-color: var(--accent-amber);
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.3);
+    }
+
+    .board.has-focus .course-card.is-next {
+      opacity: 1;
+      border-color: var(--accent-emerald);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.3);
+    }
+
+    .course-card.filtered-out {
+      opacity: 0.12 !important;
+      pointer-events: none;
+    }
+
+    /* SVG Path Animations */
+    path.conn-line {
+      fill: none;
+      stroke: #334155;
+      stroke-width: 1.5;
+      opacity: 0.25;
+      transition: stroke 0.2s, opacity 0.2s, stroke-width 0.2s;
+    }
+
+    .board.has-focus path.conn-line {
+      opacity: 0.04;
+    }
+
+    .board.has-focus path.conn-line.active-prereq {
+      stroke: var(--accent-amber);
+      stroke-width: 2.6;
+      opacity: 0.95;
+      stroke-dasharray: 6 4;
+      animation: flowDash 1s linear infinite;
+    }
+
+    .board.has-focus path.conn-line.active-next {
+      stroke: var(--accent-emerald);
+      stroke-width: 2.6;
+      opacity: 0.95;
+      stroke-dasharray: 6 4;
+      animation: flowDash 1s linear infinite;
+    }
+
+    @keyframes flowDash {
+      to {
+        stroke-dashoffset: -20;
+      }
+    }
+
+    /* Detail Drawer / Bottom Bar */
+    .detail-bar {
+      background: var(--bg-panel);
+      border-top: 1px solid var(--border-subtle);
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      z-index: 50;
+      font-size: 0.8rem;
+    }
+
+    .detail-info {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .detail-badge {
+      padding: 0.25rem 0.6rem;
+      border-radius: 0.4rem;
+      font-size: 0.74rem;
+      font-weight: 600;
+    }
+
+    .badge-amber {
+      background: rgba(245, 158, 11, 0.15);
+      color: #FCD34D;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .badge-emerald {
+      background: rgba(16, 185, 129, 0.15);
+      color: #6EE7B7;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 0.85rem 1rem; }
+      .viewport { padding: 1rem; }
+      .cuat-column { width: 225px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="title-group">
+      <h1>Pensum No. 6 — Licenciatura en Enfermería <span class="badge-uniremhos">UNIREMHOS</span></h1>
+      <p>Haz clic o pasa el cursor sobre una materia para ver sus prerrequisitos y qué materias abre después.</p>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-pill">Créditos aprobados: <strong id="cr-count">0</strong> / 208 CR</div>
+      <div class="stat-pill">Materias: <strong id="subj-count">0</strong> / 64</div>
+      <button class="btn-reset" id="btn-reset" title="Reiniciar progreso guardado">Reiniciar progreso</button>
+    </div>
+  </div>
+
+  <div class="controls-row">
+    <div class="filters" id="filter-container">
+      <button class="filter-btn active" data-area="ALL">Todas las líneas</button>
+      <button class="filter-btn" data-area="clinica">Clínica y Cuidados</button>
+      <button class="filter-btn" data-area="comunitaria">Comunitaria y Gestión</button>
+      <button class="filter-btn" data-area="quimica">Química y Farmacología</button>
+      <button class="filter-btn" data-area="investigacion">Matemática e Investigación</button>
+      <button class="filter-btn" data-area="idiomas">Idiomas y Comunicación</button>
+      <button class="filter-btn" data-area="humanidades">Psicología y Humanidades</button>
+      <button class="filter-btn" data-area="tech">Tecnología y Generales</button>
+    </div>
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Buscar por nombre o clave (ej. ENF-501)..." />
+    </div>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><span class="dot dot-preq"></span> Prerrequisito (necesitas aprobar antes)</div>
+  <div class="legend-item"><span class="dot dot-next"></span> Materia siguiente (se abre al aprobar)</div>
+  <div class="legend-item"><span class="dot dot-avail"></span> Disponible para cursar</div>
+  <div class="legend-item"><span class="dot dot-done"></span> Materia aprobada (clic en ✓)</div>
+</div>
+
+<div class="viewport" id="viewport">
+  <div class="board" id="board">
+    <svg id="connections-layer"></svg>
+  </div>
+</div>
+
+<div class="detail-bar" id="detail-bar">
+  <div class="detail-info" id="detail-content">
+    <span style="color: var(--text-secondary);">Selecciona cualquier asignatura en el diagrama para ver el detalle exacto de sus conexiones.</span>
+  </div>
+</div>
+
+<script>
+  const AREA_META = {
+    clinica: { label: 'Clínica y Cuidados', bg: 'rgba(244, 63, 94, 0.16)', color: '#FDA4AF' },
+    comunitaria: { label: 'Comunitaria y Gestión', bg: 'rgba(16, 185, 129, 0.16)', color: '#6EE7B7' },
+    quimica: { label: 'Química y Farmaco.', bg: 'rgba(168, 85, 247, 0.16)', color: '#D8B4FE' },
+    investigacion: { label: 'Mat. e Investigación', bg: 'rgba(245, 158, 11, 0.16)', color: '#FCD34D' },
+    idiomas: { label: 'Idiomas y Comun.', bg: 'rgba(59, 130, 246, 0.16)', color: '#93C5FD' },
+    humanidades: { label: 'Psicología y Hum.', bg: 'rgba(236, 72, 153, 0.16)', color: '#F9A8D4' },
+    tech: { label: 'Tech y Generales', bg: 'rgba(6, 182, 212, 0.16)', color: '#67E8F9' }
+  };
+
+  // Base de datos limpia y verificada del Pensum No. 6 de Licenciatura en Enfermería UNIREMHOS
+  const COURSES = [
+    // 1° Cuatrimestre (23 CR)
+    { id: 'ACC-1001', cuat: 1, name: 'Orientación Universitaria', cr: 1, area: 'tech', lab: null, prereqs: [] },
+    { id: 'ACC-1003', cuat: 1, name: 'Lengua Española', cr: 3, area: 'idiomas', lab: null, prereqs: [] },
+    { id: 'MAT-103', cuat: 1, name: 'Matemática', cr: 4, area: 'investigacion', lab: null, prereqs: [] },
+    { id: 'QUI-103-T', cuat: 1, name: 'Química General', cr: 3, area: 'quimica', lab: 'L-QUI-103 (2+1 CR)', prereqs: [] },
+    { id: 'BIO-104-T', cuat: 1, name: 'Biología General', cr: 3, area: 'clinica', lab: 'L-BIO-104 (2+1 CR)', prereqs: [] },
+    { id: 'HIS-303', cuat: 1, name: 'Historia Dominicana', cr: 3, area: 'humanidades', lab: null, prereqs: [] },
+    { id: 'INF-108-T', cuat: 1, name: 'Informática I', cr: 3, area: 'tech', lab: 'INF-108-L (2+1 CR)', prereqs: [] },
+    { id: 'FIL-107-T', cuat: 1, name: 'Filosofía General', cr: 3, area: 'humanidades', lab: null, prereqs: [] },
+
+    // 2° Cuatrimestre (21 CR)
+    { id: 'ACC-1006', cuat: 2, name: 'Lengua Española II', cr: 3, area: 'idiomas', lab: null, prereqs: ['ACC-1003'] },
+    { id: 'CMO-121-T', cuat: 2, name: 'Anatomía Humana', cr: 4, area: 'clinica', lab: 'L-CMO-121 (3+1 CR)', prereqs: ['BIO-104-T'] },
+    { id: 'CFI-122-T', cuat: 2, name: 'Fisiología General', cr: 4, area: 'clinica', lab: 'L-CFI-122 (3+1 CR)', prereqs: ['BIO-104-T'] },
+    { id: 'FIS-202-T', cuat: 2, name: 'Física General', cr: 4, area: 'investigacion', lab: 'L-FIS-202 (3+1 CR)', prereqs: ['MAT-103'] },
+    { id: 'INF-204-T', cuat: 2, name: 'Informática II', cr: 3, area: 'tech', lab: 'INF-204-L (2+1 CR)', prereqs: ['INF-108-T'] },
+    { id: 'QUI-205-T', cuat: 2, name: 'Química Orgánica', cr: 3, area: 'quimica', lab: 'L-QUI-205 (2+1 CR)', prereqs: ['QUI-103-T'] },
+
+    // 3° Cuatrimestre (18 CR)
+    { id: 'ENF-206', cuat: 3, name: 'Introducción a la Enfermería', cr: 3, area: 'clinica', lab: null, prereqs: ['HIS-303'] },
+    { id: 'LEX-206', cuat: 3, name: 'Inglés I', cr: 3, area: 'idiomas', lab: null, prereqs: ['ACC-1006'] },
+    { id: 'BIO-131-T', cuat: 3, name: 'Microbiología General', cr: 3, area: 'clinica', lab: 'L-BIO-131 (2+1 CR)', prereqs: ['BIO-104-T'] },
+    { id: 'CFI-303-T', cuat: 3, name: 'Bioquímica', cr: 3, area: 'quimica', lab: 'L-CFI-303 (2+1 CR)', prereqs: ['QUI-205-T'] },
+    { id: 'CFI-304-T', cuat: 3, name: 'Farmacología General', cr: 3, area: 'quimica', lab: 'L-CFI-304 (2+1 CR)', prereqs: ['BIO-104-T', 'QUI-205-T'] },
+    { id: 'SAP-302-T', cuat: 3, name: 'Metodología de la Investigación Científica', cr: 3, area: 'investigacion', lab: 'SAP-302-P (2+1 CR)', prereqs: ['ACC-1006', 'MAT-103'] },
+
+    // 4° Cuatrimestre (22 CR)
+    { id: 'ENF-306-T', cuat: 4, name: 'Procedimientos Básicos en Salud y Bioseguridad', cr: 4, area: 'clinica', lab: 'P-ENF-306 (2+2 CR)', prereqs: ['CMO-121-T', 'CFI-122-T', 'BIO-131-T'] },
+    { id: 'CFI-402-T', cuat: 4, name: 'Semiología Clínica', cr: 3, area: 'clinica', lab: 'P-CFI-402 (2+1 CR)', prereqs: ['CMO-121-T', 'CFI-122-T', 'BIO-131-T'] },
+    { id: 'SOC-208', cuat: 4, name: 'Introducción a la Sociología', cr: 3, area: 'humanidades', lab: null, prereqs: ['HIS-303'] },
+    { id: 'PSI-120-T', cuat: 4, name: 'Psicología General', cr: 3, area: 'humanidades', lab: null, prereqs: [] },
+    { id: 'SOC-401', cuat: 4, name: 'Enseñanza de la Constitución de la R.D.', cr: 3, area: 'humanidades', lab: null, prereqs: ['HIS-303'] },
+    { id: 'BIO-403-T', cuat: 4, name: 'Parasitología General', cr: 3, area: 'clinica', lab: 'BIO-403-L (2+1 CR)', prereqs: ['BIO-131-T'] },
+    { id: 'MAT-302', cuat: 4, name: 'Bioestadística', cr: 3, area: 'investigacion', lab: null, prereqs: ['MAT-103'] },
+
+    // 5° Cuatrimestre (21 CR)
+    { id: 'ENF-302-T', cuat: 5, name: 'Enfermería Familiar Comunitaria', cr: 3, area: 'comunitaria', lab: 'P-ENF-302 (2+1 CR)', prereqs: ['BIO-131-T', 'ACC-1006'] },
+    { id: 'ENF-401-T', cuat: 5, name: 'Cuidado de Enfermería al Adulto I', cr: 6, area: 'clinica', lab: 'P-ENF-401 (3+3 CR)', prereqs: ['ENF-306-T', 'ENF-206', 'CMO-121-T', 'CFI-122-T', 'BIO-131-T', 'BIO-403-T'] },
+    { id: 'ENF-404', cuat: 5, name: 'Nutrición y Desarrollo Humano', cr: 3, area: 'quimica', lab: null, prereqs: ['QUI-205-T'] },
+    { id: 'SAP-605-T', cuat: 5, name: 'Epidemiología', cr: 3, area: 'investigacion', lab: 'P-SAP-605 (2+1 CR)', prereqs: ['MAT-302', 'SAP-302-T'] },
+    { id: 'PD-507', cuat: 5, name: 'Pedagogía y Didáctica', cr: 3, area: 'idiomas', lab: null, prereqs: ['ACC-1006'] },
+    { id: 'PSI-506', cuat: 5, name: 'Psicología Evolutiva', cr: 3, area: 'humanidades', lab: null, prereqs: ['PSI-120-T'] },
+
+    // 6° Cuatrimestre (21 CR)
+    { id: 'ENF-501-T', cuat: 6, name: 'Cuidado de Enfermería al Adulto II', cr: 6, area: 'clinica', lab: 'P-ENF-501 (3+3 CR)', prereqs: ['ENF-401-T', 'CFI-402-T'] },
+    { id: 'MED-505', cuat: 6, name: 'Fisiopatología General', cr: 3, area: 'clinica', lab: null, prereqs: ['CMO-121-T', 'CFI-122-T'] },
+    { id: 'ENF-406-T', cuat: 6, name: 'Enfermería Familiar Domiciliaria', cr: 3, area: 'comunitaria', lab: 'P-ENF-406 (2+1 CR)', prereqs: ['ENF-302-T', 'ENF-401-T', 'BIO-131-T', 'ENF-306-T', 'BIO-403-T'] },
+    { id: 'ADM-606', cuat: 6, name: 'Fundamento de Administración', cr: 2, area: 'comunitaria', lab: null, prereqs: ['SOC-208', 'MAT-103'] },
+    { id: 'ENF-405', cuat: 6, name: 'Ética, Bioética y Legislación en Enfermería', cr: 2, area: 'humanidades', lab: null, prereqs: ['FIL-107-T', 'SOC-401'] },
+    { id: 'SOC-307', cuat: 6, name: 'Antropología Sociocultural', cr: 2, area: 'humanidades', lab: null, prereqs: ['HIS-303', 'SOC-208'] },
+    { id: 'LEX-508', cuat: 6, name: 'Inglés Técnico', cr: 3, area: 'idiomas', lab: null, prereqs: ['LEX-206'] },
+
+    // 7° Cuatrimestre (21 CR)
+    { id: 'MED-601', cuat: 7, name: 'Fundamentos Clínicos Salud Mental y Psiquiatría', cr: 2, area: 'clinica', lab: null, prereqs: ['ENF-501-T', 'PSI-506'] },
+    { id: 'ENF-602-T', cuat: 7, name: 'Enfermería Salud Mental y Psiquiatría', cr: 5, area: 'clinica', lab: 'P-ENF-602 (3+2 CR)', prereqs: ['ENF-501-T', 'PSI-506'] },
+    { id: 'ENF-604-T', cuat: 7, name: 'Enfermería Quirúrgica y Técnica de Quirófanos', cr: 5, area: 'clinica', lab: 'P-ENF-604 (2+3 CR)', prereqs: ['ENF-501-T', 'BIO-131-T', 'BIO-403-T'] },
+    { id: 'INF-307-T', cuat: 7, name: 'Tecnología de la Información y Comunicación en Salud', cr: 3, area: 'tech', lab: 'INF-307-P (2+1 CR)', prereqs: ['INF-204-T', 'LEX-508'] },
+    { id: 'ENF-704-T', cuat: 7, name: 'Enfermería y Salud Laboral', cr: 3, area: 'humanidades', lab: 'P-ENF-704 (2+1 CR)', prereqs: ['PSI-120-T'] },
+    { id: 'LEX-309', cuat: 7, name: 'Creol Básico', cr: 3, area: 'idiomas', lab: null, prereqs: ['LEX-206'] },
+
+    // 8° Cuatrimestre (16 CR)
+    { id: 'MED-801', cuat: 8, name: 'Clínica Gineco-Obstétrica y Perinatal', cr: 2, area: 'clinica', lab: null, prereqs: ['ENF-501-T', 'CFI-402-T', 'ENF-604-T', 'ENF-602-T', 'PSI-506'] },
+    { id: 'ENF-802-T', cuat: 8, name: 'Enfermería Gineco-Obstétrica y Perinatal', cr: 5, area: 'clinica', lab: 'P-ENF-802 (2+3 CR)', prereqs: ['ENF-501-T', 'CFI-402-T', 'ENF-604-T', 'ENF-602-T', 'PSI-506'] },
+    { id: 'ENF-803-T', cuat: 8, name: 'Enfermería Comunitaria Materno Infantil', cr: 3, area: 'comunitaria', lab: 'P-ENF-803 (2+1 CR)', prereqs: ['ENF-501-T', 'CFI-402-T', 'ENF-302-T', 'ADM-606', 'ENF-602-T', 'PSI-506', 'SAP-605-T'] },
+    { id: 'ENF-705-T', cuat: 8, name: 'Enfermería Geriátrica y Gerontológica', cr: 3, area: 'clinica', lab: 'P-ENF-705 (2+1 CR)', prereqs: ['ENF-501-T', 'CFI-402-T'] },
+    { id: 'OPT-I', cuat: 8, name: 'Optativa I (Oratoria / Prev. Drogas)', cr: 3, area: 'tech', lab: null, prereqs: [] },
+
+    // 9° Cuatrimestre (17 CR)
+    { id: 'MED-901', cuat: 9, name: 'Clínica Pediátrica y Adolescente', cr: 2, area: 'clinica', lab: null, prereqs: ['MED-801', 'ENF-602-T'] },
+    { id: 'ENF-902-T', cuat: 9, name: 'Enfermería Pediátrica y Adolescente', cr: 5, area: 'clinica', lab: 'P-ENF-902 (2+3 CR)', prereqs: ['ENF-802-T', 'ENF-602-T'] },
+    { id: 'ENF-903-T', cuat: 9, name: 'Enfermería en Salud Escolar y del Adolescente', cr: 3, area: 'comunitaria', lab: 'P-ENF-903 (2+1 CR)', prereqs: ['ENF-803-T', 'ENF-602-T'] },
+    { id: 'ENF-904-T', cuat: 9, name: 'Administración de Servicios de Enfermería Comunitarios', cr: 3, area: 'comunitaria', lab: 'P-ENF-904 (2+1 CR)', prereqs: ['ADM-606', 'ENF-803-T', 'ENF-704-T', 'ENF-602-T', 'ENF-501-T'] },
+    { id: 'ACC-1002', cuat: 9, name: 'Cristianismo Básico', cr: 2, area: 'tech', lab: null, prereqs: [] },
+    { id: 'OPT-II', cuat: 9, name: 'Optativa II (Educación Vial / Emprendimiento)', cr: 2, area: 'tech', lab: null, prereqs: [] },
+
+    // 10° Cuatrimestre (16 CR)
+    { id: 'MED-1001', cuat: 10, name: 'Medicina Crítica, Urgencia, Emergencia', cr: 2, area: 'clinica', lab: null, prereqs: ['ENF-501-T', 'ENF-802-T', 'MED-901', 'ENF-902-T'] },
+    { id: 'ENF-1002-T', cuat: 10, name: 'Cuidado de Enfermería en Paciente Crítico, Urgencia y Desastre', cr: 5, area: 'clinica', lab: 'P-ENF-1002 (3+2 CR)', prereqs: ['ENF-501-T', 'ENF-802-T', 'MED-901', 'ENF-902-T'] },
+    { id: 'ENF-1003-T', cuat: 10, name: 'Enfermería y Gestión de los Servicios Hospitalarios', cr: 6, area: 'comunitaria', lab: 'P-ENF-1003 (3+3 CR)', prereqs: ['ADM-606', 'ENF-904-T'] },
+    { id: 'SOC-705-T', cuat: 10, name: 'Metodología de la Investigación en Salud', cr: 3, area: 'investigacion', lab: 'SOC-705-P (2+1 CR)', prereqs: ['SAP-302-T', 'LEX-508'] },
+
+    // 11° Cuatrimestre (3 CR)
+    { id: 'CPS-HOSP', cuat: 11, name: 'Internado Rotatorio: Ciclo Hospitalario', cr: 3, area: 'clinica', lab: null, prereqs: ['ALL_PREV'] },
+
+    // 12° Cuatrimestre (9 CR)
+    { id: 'CPS-COM', cuat: 12, name: 'Internado Rotatorio: Ciclo Comunitario', cr: 3, area: 'comunitaria', lab: null, prereqs: ['CPS-HOSP'] },
+    { id: 'TFG', cuat: 12, name: 'Trabajo Final de Grado (TFG)', cr: 6, area: 'investigacion', lab: null, prereqs: ['CPS-HOSP'] }
+  ];
+
+  // Construcción de mapa de relaciones directas (evitando duplicados y asegurando bidireccionalidad)
+  const courseMap = new Map(COURSES.map(c => [c.id, { ...c, next: [] }]));
+
+  COURSES.forEach(course => {
+    if (course.prereqs.includes('ALL_PREV')) {
+      // Conectar visualmente el cierre del 10° cuatrimestre hacia el Internado Hospitalario
+      COURSES.filter(c => c.cuat === 10).forEach(c10 => {
+        courseMap.get(c10.id).next.push(course.id);
+      });
+    } else {
+      course.prereqs.forEach(preId => {
+        const parent = courseMap.get(preId);
+        if (parent && !parent.next.includes(course.id)) {
+          parent.next.push(course.id);
+        }
+      });
+    }
+  });
+
+  // Estado de aprobación con persistencia segura en localStorage
+  const STORAGE_KEY = 'uniremhos_enfermeria_p6_approved';
+  let approvedSet = new Set();
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    if (Array.isArray(saved)) approvedSet = new Set(saved);
+  } catch (e) {
+    approvedSet = new Set();
+  }
+
+  let selectedId = null;
+  let hoveredId = null;
+  let activeArea = 'ALL';
+  let searchQuery = '';
+
+  const boardEl = document.getElementById('board');
+  const svgEl = document.getElementById('connections-layer');
+  const detailContent = document.getElementById('detail-content');
+
+  function saveProgress() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...approvedSet]));
+    } catch (e) {}
+  }
+
+  function isCourseAvailable(course) {
+    if (approvedSet.has(course.id)) return false;
+    if (course.prereqs.includes('ALL_PREV')) {
+      return COURSES.filter(c => c.cuat <= 10).every(c => approvedSet.has(c.id));
+    }
+    return course.prereqs.every(pid => approvedSet.has(pid));
+  }
+
+  function renderBoard() {
+    // Limpiar columnas previas manteniendo el SVG
+    boardEl.querySelectorAll('.cuat-column').forEach(el => el.remove());
+
+    for (let cuat = 1; cuat <= 12; cuat++) {
+      const colCourses = COURSES.filter(c => c.cuat === cuat);
+      const totalCr = colCourses.reduce((sum, c) => sum + c.cr, 0);
+
+      const col = document.createElement('div');
+      col.className = 'cuat-column';
+      col.innerHTML = `
+        <div class="cuat-header">
+          <h2>${cuat}° Cuatrimestre</h2>
+          <span>${totalCr} Créditos</span>
+        </div>
+      `;
+
+      colCourses.forEach(course => {
+        const areaInfo = AREA_META[course.area];
+        const card = document.createElement('div');
+        card.className = 'course-card';
+        card.dataset.id = course.id;
+
+        if (approvedSet.has(course.id)) card.classList.add('approved');
+        if (isCourseAvailable(course)) card.classList.add('available');
+
+        card.innerHTML = `
+          <div class="card-top">
+            <span class="course-code">${course.id}</span>
+            <div style="display:flex;align-items:center;gap:0.4rem;">
+              <span class="course-cr">${course.cr} CR</span>
+              <button class="check-btn" title="Marcar como aprobada" aria-label="Marcar como aprobada">✓</button>
+            </div>
+          </div>
+          <div class="course-title">${course.name}</div>
+          <div class="course-meta">
+            <span class="tag-area" style="background:${areaInfo.bg};color:${areaInfo.color};">${areaInfo.label}</span>
+            ${course.lab ? `<span class="tag-lab">+ ${course.lab}</span>` : ''}
+          </div>
+        `;
+
+        // Evento de aprobación (✓)
+        const checkBtn = card.querySelector('.check-btn');
+        checkBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (approvedSet.has(course.id)) {
+            approvedSet.delete(course.id);
+          } else {
+            approvedSet.add(course.id);
+          }
+          saveProgress();
+          updateCardStates();
+          updateStats();
+        });
+
+        // Evento de selección fija al hacer clic en la tarjeta
+        card.addEventListener('click', () => {
+          selectedId = (selectedId === course.id) ? null : course.id;
+          applyFocusState();
+        });
+
+        // Evento hover temporal si no hay tarjeta fijada
+        card.addEventListener('mouseenter', () => {
+          hoveredId = course.id;
+          if (!selectedId) applyFocusState();
+        });
+
+        card.addEventListener('mouseleave', () => {
+          hoveredId = null;
+          if (!selectedId) applyFocusState();
+        });
+
+        col.appendChild(card);
+      });
+
+      boardEl.appendChild(col);
+    }
+
+    updateStats();
+    applyFilters();
+    requestAnimationFrame(drawConnections);
+  }
+
+  function updateCardStates() {
+    document.querySelectorAll('.course-card').forEach(card => {
+      const course = courseMap.get(card.dataset.id);
+      card.classList.toggle('approved', approvedSet.has(course.id));
+      card.classList.toggle('available', isCourseAvailable(course));
+    });
+  }
+
+  function updateStats() {
+    let totalCr = 0;
+    approvedSet.forEach(id => {
+      const c = courseMap.get(id);
+      if (c) totalCr += c.cr;
+    });
+    document.getElementById('cr-count').textContent = totalCr;
+    document.getElementById('subj-count').textContent = approvedSet.size;
+  }
+
+  function drawConnections() {
+    svgEl.innerHTML = '';
+    const boardRect = boardEl.getBoundingClientRect();
+    svgEl.setAttribute('width', boardEl.scrollWidth);
+    svgEl.setAttribute('height', boardEl.scrollHeight);
+
+    COURSES.forEach(target => {
+      const targetEl = boardEl.querySelector(`.course-card[data-id="${target.id}"]`);
+      if (!targetEl) return;
+
+      const sourceIds = target.prereqs.includes('ALL_PREV')
+        ? COURSES.filter(c => c.cuat === 10).map(c => c.id)
+        : target.prereqs;
+
+      sourceIds.forEach(srcId => {
+        const srcEl = boardEl.querySelector(`.course-card[data-id="${srcId}"]`);
+        if (!srcEl) return;
+
+        const r1 = srcEl.getBoundingClientRect();
+        const r2 = targetEl.getBoundingClientRect();
+
+        const x1 = (r1.right - boardRect.left);
+        const y1 = (r1.top + r1.height / 2 - boardRect.top);
+        const x2 = (r2.left - boardRect.left);
+        const y2 = (r2.top + r2.height / 2 - boardRect.top);
+
+        const dx = Math.max(Math.abs(x2 - x1) * 0.45, 35);
+        const d = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', d);
+        path.setAttribute('class', 'conn-line');
+        path.dataset.from = srcId;
+        path.dataset.to = target.id;
+        svgEl.appendChild(path);
+      });
+    });
+
+    applyFocusState();
+  }
+
+  function applyFocusState() {
+    const focusId = selectedId || hoveredId;
+    const cards = boardEl.querySelectorAll('.course-card');
+    const paths = svgEl.querySelectorAll('path.conn-line');
+
+    cards.forEach(c => c.classList.remove('is-selected', 'is-prereq', 'is-next'));
+    paths.forEach(p => p.classList.remove('active-prereq', 'active-next'));
+
+    if (!focusId) {
+      boardEl.classList.remove('has-focus');
+      detailContent.innerHTML = `<span style="color: var(--text-secondary);">Haz clic o pasa el cursor sobre cualquier asignatura para ver qué necesita antes y qué abre después.</span>`;
+      return;
+    }
+
+    boardEl.classList.add('has-focus');
+    const focusCourse = courseMap.get(focusId);
+    const prereqIds = focusCourse.prereqs.includes('ALL_PREV')
+      ? COURSES.filter(c => c.cuat === 10).map(c => c.id)
+      : focusCourse.prereqs;
+    const nextIds = focusCourse.next;
+
+    cards.forEach(card => {
+      const cid = card.dataset.id;
+      if (cid === focusId) card.classList.add('is-selected');
+      else if (prereqIds.includes(cid)) card.classList.add('is-prereq');
+      else if (nextIds.includes(cid)) card.classList.add('is-next');
+    });
+
+    paths.forEach(path => {
+      if (path.dataset.to === focusId) path.classList.add('active-prereq');
+      if (path.dataset.from === focusId) path.classList.add('active-next');
+    });
+
+    // Actualizar barra inferior con nombres claros
+    const prereqNames = focusCourse.prereqs.includes('ALL_PREV')
+      ? 'Todas las asignaturas del 1° al 10° Cuatrimestre'
+      : (prereqIds.length ? prereqIds.map(id => courseMap.get(id)?.name || id).join(', ') : 'Ninguno (Bachiller)');
+
+    const nextNames = nextIds.length
+      ? nextIds.map(id => courseMap.get(id)?.name || id).join(', ')
+      : 'Cierre de carrera';
+
+    detailContent.innerHTML = `
+      <div><strong>${focusCourse.name}</strong> <span style="color:var(--text-secondary);font-family:'JetBrains Mono',monospace;">(${focusCourse.id} · ${focusCourse.cr} CR)</span></div>
+      <span class="detail-badge badge-amber">Antes: ${prereqNames}</span>
+      <span class="detail-badge badge-emerald">Abre: ${nextNames}</span>
+    `;
+  }
+
+  function applyFilters() {
+    const q = searchQuery.trim().toLowerCase();
+    document.querySelectorAll('.course-card').forEach(card => {
+      const c = courseMap.get(card.dataset.id);
+      const matchArea = (activeArea === 'ALL' || c.area === activeArea);
+      const matchText = !q || c.name.toLowerCase().includes(q) || c.id.toLowerCase().includes(q);
+      card.classList.toggle('filtered-out', !(matchArea && matchText));
+    });
+  }
+
+  // Eventos de filtros y búsqueda
+  document.getElementById('filter-container').addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeArea = btn.dataset.area;
+    applyFilters();
+  });
+
+  document.getElementById('search-input').addEventListener('input', (e) => {
+    searchQuery = e.target.value;
+    applyFilters();
+  });
+
+  document.getElementById('btn-reset').addEventListener('click', () => {
+    approvedSet.clear();
+    saveProgress();
+    updateCardStates();
+    updateStats();
+  });
+
+  // Clic fuera de tarjetas limpia la selección fija
+  boardEl.addEventListener('click', (e) => {
+    if (!e.target.closest('.course-card')) {
+      selectedId = null;
+      applyFocusState();
+    }
+  });
+
+  window.addEventListener('resize', () => requestAnimationFrame(drawConnections));
+
+  // Inicializar
+  renderBoard();
+</script>
+</body>
+</html>
